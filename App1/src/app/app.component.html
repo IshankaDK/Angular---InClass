@@ -1,0 +1,60 @@
+<!--Data Binding-->
+<!--1 One Way Data Binding-->
+<!--2 Two Way Data Binding-->
+
+
+<!--1 One Way Data Binding-->
+<!--
+<input type="text" id="userName" name= "userName" class="user-name"
+       #element (keyup)="setUserName(element.value)">
+-->
+
+<!--<input type="text" id="userName" name= "userName" class="user-name"
+       #element (keyup.enter)="setUserName(element.value)">-->
+
+<!--
+<input type="text" id="userName" name= "userName" class="user-name"
+       #element (keyup.enter)="setUserName(element.value)">
+
+<p>User Name: {{userName}}</p> &lt;!&ndash;interpolation  {{}}&ndash;&gt;
+
+<input type="text" value="{{userName}}">
+<input type="text" [value]="userName">
+-->
+
+
+<!--2 Two Way Data Binding-->
+
+<!--<input type="text" [(ngModel)]="userName">-->
+<!--{{userName}}-->
+
+<!--don't use this method-->
+<!--<div class="main-wrap">-->
+<!--  <p class="title">Sign in</p>-->
+<!--  <hr>-->
+<!--  -->
+<!--  <input type="email" class="input-text" [(ngModel)]="email">-->
+<!--  <br>-->
+<!--  <br>-->
+<!--  <input type="password" class="input-text" [(ngModel)]="password">-->
+<!--  <br>-->
+<!--  <br>-->
+<!--  <input type="submit" value="Login" class="btn" (click)="login()">-->
+<!--</div>-->
+
+<div  class="main-wrap">
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <p class="title">Sign in</p>
+  <hr>
+
+  <input formControlName="email" type="email" class="input-text">
+  <p class="alert" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+    email is required
+  </p>
+  <input formControlName="password" type="password" class="input-text">
+  <p class="alert" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+    password must have 6-10 characters
+  </p>
+  <input [disabled]="loginForm.invalid" type="submit" value="Login" class="btn {{loginForm.invalid?'invalid':''}}">
+</form>
+</div>
